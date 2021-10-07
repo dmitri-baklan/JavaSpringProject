@@ -1,10 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{css/main.css}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
+    <title th:text="#{title.login}">
+        Login-Periodicals
+    </title>
 </head>
 <body>
+<header>
+    <div th:insert="~{fragments/header :: copy}"></div>
+</header>
+<div class="container-sm" style="max-width: 450px">
+    <form>
+        <p class="fs-3" th:text="#{form.signin}">Sign in:</p>
+        <div class="mb-3">
+            <!--            <label for="exampleInputEmail1" class="form-label" >Email address</label>-->
+            <input type="email" class="form-control" id="exampleInputEmail1" th:placeholder="#{form.signin.email}">
+            <div id="emailHelp" class="form-text"></div>
+        </div>
+        <div class="mb-3">
+            <!--            <label for="exampleInputPassword1" class="form-label" >Password</label>-->
+            <input type="password" class="form-control" id="exampleInputPassword1" th:placeholder="#{form.signin.password}">
+        </div>
+        <a th:href="@{/registration}" class="link-primary" id="signUpLink" th:text="#{form.link.signup}">Sign up</a>
+        <br/>
+        <br/>
+        <button type="submit" class="btn btn-primary" th:text="#{button.submit}">Submit</button>
+    </form>
+</div>
 
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.min.js" integrity="sha384-PsUw7Xwds7x08Ew3exXhqzbhuEYmA2xnwc8BuD6SEr+UmEHlX8/MCltYEodzWA4u" crossorigin="anonymous"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>-->
 </body>
 </html>

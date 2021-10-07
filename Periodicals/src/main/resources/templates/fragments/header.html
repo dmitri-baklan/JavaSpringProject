@@ -1,10 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <body>
+    <div th:fragment="copy">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class=" d-flex justify-content-xl-between sectionMainContent navbar-collapse"
+                 id="navbarSupportedContent">
+
+
+
+                    <li class="nav-item active">
+                        <a class="navbar-brand" href="/welcome">Periodicals</a>
+                    </li>
+
+<!--                    <li class="nav-item dropdown">-->
+<!--                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"-->
+<!--                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{nav.link.lang}">-->
+<!--                            Language-->
+<!--                        </a>-->
+<!--                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+<!--                            <a class="dropdown-item" href="?lang=en" th:text="#{nav.language.english}">English</a>-->
+<!--                            <a class="dropdown-item" href="?lang=ru" th:text="#{nav.language.ukrainian}">Russian</a>-->
+<!--                        </div>-->
+<!--                    </li>-->
+<!--                </ul>-->
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" th:text="#{nav.link.lang}">
+                        Language
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="?lang=en" th:text="#{nav.language.english}">English</a></li>
+                        <li><a class="dropdown-item" href="?lang=ru" th:text="#{nav.language.ukrainian}">Ukrainian</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
 
 </body>
+
 </html>

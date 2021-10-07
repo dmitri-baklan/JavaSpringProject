@@ -10,15 +10,12 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "replenishments",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"user_id"})
-        }
+@Table(name = "replenishments"
 )
 public class Replenishment {
 
     @Id
-    @Generated
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column

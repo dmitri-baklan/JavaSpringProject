@@ -54,8 +54,8 @@ public class UserDetailsImpl implements UserDetails {
         return String.format("User:{email:%s,password:%s,firstName:%s,lastName:%s,role:%s}",
                 user.getEmail(),
                 user.getPassword(),
-                user.getFirstName(),
-                user.getLastName(),
+                user.getName(),
+                user.getSurname(),
                 user.getRole().name());
     }
 }

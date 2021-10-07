@@ -22,7 +22,7 @@ import java.util.Set;
 public class Account {
 
     @Id
-    @Generated
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column

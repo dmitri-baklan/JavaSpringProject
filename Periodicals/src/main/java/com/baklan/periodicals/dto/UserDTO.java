@@ -18,17 +18,17 @@ import javax.validation.constraints.*;
 public class UserDTO {
 
 
-    private Long id;
+//    private Long id;
 
     @NotBlank(message = "{valid.user.name.blank}")
     @Size(min=2, max=20, message = "{valid.user.name.size}")
     @Pattern(regexp = UserRegex.REGEX_NAME, message = "{valid.user.name.regex}")
-    private String firstname;
+    private String name;
 
     @NotBlank(message = "{valid.user.name.blank}")
     @Size(min=2, max=20, message = "{valid.user.name.size}")
     @Pattern(regexp = UserRegex.REGEX_NAME, message = "{valid.user.name.regex}")
-    private String secondname;
+    private String surname;
 
     @NotBlank(message = "{valid.user.email.blank}")
     @Size(max=20, message = "{valid.user.email.size}")
@@ -41,10 +41,10 @@ public class UserDTO {
     private String password;
 
 //    @Positive
-    @NotNull(message = "{valid.user.account.null}")
-    @Range(min=10,max=1000, message = "{valid.user.account.size}")
-    private Long account;
+//    @NotNull(message = "{valid.user.account.null}")
+//    @Range(min=10,max=1000, message = "{valid.user.account.size}")
+//    private Long account;
 
-    private Role role;
+    private String role;
 
 }

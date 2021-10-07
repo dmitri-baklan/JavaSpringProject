@@ -21,7 +21,7 @@ import java.util.Set;
 )
 public class User {
     @Id
-    @Generated
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
@@ -31,10 +31,10 @@ public class User {
     private String password;
 
     @Column
-    private String firstName;
+    private String name;
 
     @Column
-    private String lastName;
+    private String surname;
 
     @Column
     @Enumerated(EnumType.STRING)

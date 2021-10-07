@@ -18,7 +18,7 @@ import javax.persistence.*;
 public class Periodical {
 
     @Id
-    @Generated
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
@@ -28,7 +28,7 @@ public class Periodical {
     private String description;
 
     @Column
-    private String price;
+    private Long price;
 
     @Column
     private Long subscribers;
