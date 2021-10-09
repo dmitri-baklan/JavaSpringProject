@@ -25,44 +25,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception{
-//        httpSecurity.csrf().disable()
-//                .authorizeRequests()
-//                .antMatchers("/css/**", "/js/**", "/images/**", "/welcome", "/login").permitAll()
-//                .antMatchers("/registration").anonymous()
-//                .antMatchers("/profile/**").fullyAuthenticated()
-//
-//                .antMatchers("/products").hasAnyAuthority("CASHIER", "COMMODITY_EXPERT")
-//                .antMatchers("/session/{\\d+}/check/overview").hasAnyAuthority("CASHIER", "SENIOR_CASHIER")
-//
-//                .antMatchers("/session/requests", "/session/{\\d+}/close",
-//                        "/sales/{\\d+}/delete", "/shifts/**").hasAuthority("SENIOR_CASHIER")
-//
-//                .antMatchers("/session/**", "/sales/**").hasAuthority("CASHIER")
-//
-//                .antMatchers("/products/**").hasAuthority("COMMODITY_EXPERT")
-//
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin().permitAll()
-//                .loginPage("/login")
-//                .defaultSuccessUrl("/profile", true)
-//                .and()
-//                .logout().permitAll()
-//                .logoutSuccessUrl("/welcome");
-
         httpSecurity.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/css/**", "/images/**", "/welcome", "/login").permitAll()
-                .antMatchers("/registration").anonymous()
-                .antMatchers("/profile/**").fullyAuthenticated()
+                .antMatchers("/css/**", "/images/**").permitAll()
+                .antMatchers("/registration","/login", "/welcome" ).anonymous()
+                .antMatchers("/profile/**", "/periodicals", "/periodicals/{\\d}").fullyAuthenticated()
+                .antMatchers("/periodicals/{\\d}/edit").hasAuthority("ADMINISTRATOR")
                 .and()
                 .formLogin().permitAll()
                 .loginPage("/login")
-
+                .defaultSuccessUrl("/profile", true)
                 .and()
-
                 .logout().permitAll()
-                .logoutSuccessUrl("/welcome");
+                .logoutSuccessUrl("/login");
     }
 
     @Override

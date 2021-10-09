@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS public.periodicals
 (
     id bigserial NOT NULL,
     name varchar(255) NOT NULL,
-    description varchar(255) NOT NULL,
+    subject varchar(255) NOT NULL,
     price int8 NOT NULL,
     subscribers int8 NOT NULL,
     CONSTRAINT periodicals_pkey PRIMARY KEY (id)
@@ -36,7 +36,8 @@ CREATE TABLE IF NOT EXISTS public.replenishments
     id bigserial NOT NULL,
     sum int8 NOT NULL,
     account_id int8 NOT NULL,
-    CONSTRAINT "Replenishments_pkey" PRIMARY KEY (id),
+    time timestamp NOT NULL,
+    CONSTRAINT "replenishments_pkey" PRIMARY KEY (id),
     CONSTRAINT account_id FOREIGN KEY (account_id)
     REFERENCES public.accounts
     );

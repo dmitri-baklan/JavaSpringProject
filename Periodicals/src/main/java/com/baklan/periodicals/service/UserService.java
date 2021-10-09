@@ -3,6 +3,7 @@ package com.baklan.periodicals.service;
 import com.baklan.periodicals.dto.UserDTO;
 import com.baklan.periodicals.entity.user.Role;
 import com.baklan.periodicals.entity.user.User;
+import com.baklan.periodicals.entity.user.details.UserDetailsImpl;
 import com.baklan.periodicals.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,11 +28,13 @@ public class UserService implements UserDetailsService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return null;
-    }
-    public UserDTO getUserByEmailAuth(UserDetails userDetails){
+    public UserDetails loadUserByUsername(String email) {
 
+        return new UserDetailsImpl(userRepository.findByEmail(email).
+                orElseThrow(()-> new UsernameNotFoundException(String.format("email %s not found", email))));
+    }
+
+    public UserDTO getUserByEmailAuth(UserDetails userDetails){
         User user = userRepository.findByEmail(userDetails.getUsername()).orElse(null);
         Objects.requireNonNull(user);
 
@@ -43,6 +46,7 @@ public class UserService implements UserDetailsService {
                 .role(user.getRole().name())
                 .build();
     }
+
     public void signUpUser(UserDTO userDTO) {
 
         String encPassword = bCryptPasswordEncoder.encode(userDTO.getPassword());

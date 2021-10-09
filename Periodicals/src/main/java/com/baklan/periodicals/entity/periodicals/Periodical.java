@@ -23,9 +23,10 @@ public class Periodical {
 
     @Column
     private String name;
-
+    
     @Column
-    private String description;
+    @Enumerated(EnumType.STRING)
+    private Subject subject;
 
     @Column
     private Long price;

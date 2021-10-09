@@ -3,42 +3,58 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<!--    style="max-width: 450px"-->
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" th:href="@{css/main.css}">
+<!--    <link rel="stylesheet" th:href="@{css/main.css}">-->
+    <link rel="stylesheet" href="/css/node_modules/bootstrap-icons/main.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+            crossorigin="anonymous"></script>
     <title th:text="#{title.login}">
-        Login-Periodicals
+        Periodicals-Login
     </title>
 </head>
 <body>
 <header>
     <div th:insert="~{fragments/header :: copy}"></div>
 </header>
-<div class="container-sm" style="max-width: 450px">
-    <form>
-        <p class="fs-3" th:text="#{form.signin}">Sign in:</p>
-        <div class="mb-3">
-            <!--            <label for="exampleInputEmail1" class="form-label" >Email address</label>-->
-            <input type="email" class="form-control" id="exampleInputEmail1" th:placeholder="#{form.signin.email}">
-            <div id="emailHelp" class="form-text"></div>
-        </div>
-        <div class="mb-3">
-            <!--            <label for="exampleInputPassword1" class="form-label" >Password</label>-->
-            <input type="password" class="form-control" id="exampleInputPassword1" th:placeholder="#{form.signin.password}">
-        </div>
-        <a th:href="@{/registration}" class="link-primary" id="signUpLink" th:text="#{form.link.signup}">Sign up</a>
-        <br/>
-        <br/>
-        <button type="submit" class="btn btn-primary" th:text="#{button.submit}">Submit</button>
-    </form>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.min.js" integrity="sha384-PsUw7Xwds7x08Ew3exXhqzbhuEYmA2xnwc8BuD6SEr+UmEHlX8/MCltYEodzWA4u" crossorigin="anonymous"></script>
-<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>-->
+
+<div class="text-center" >
+    <div class="sectionMainContent">
+        <form class="form-signin" th:action="@{/login}" th:method="post">
+            <p class="fs-3" th:text="#{form.signin}">Sign in:</p>
+            <div th:if="${param.error}" class="alert alert-danger"
+                 th:text="#{form.signin.incorrect.data}"></div>
+            <div class="mb-3">
+                <input type="email" class="form-control" id="exampleInputEmail1"
+                       th:placeholder="#{form.signin.email}" name="username">
+                <div id="emailHelp" class="form-text"></div>
+            </div>
+            <div class="mb-3">
+                <input type="password" class="form-control" id="exampleInputPassword1"
+                       th:placeholder="#{form.signin.password}" name="password">
+            </div>
+            <a th:href="@{/registration}" class="link-primary" id="signUpLink" th:text="#{form.link.signup}">Sign up</a>
+            <br/>
+            <br/>
+            <button type="submit" class="btn btn-primary" th:text="#{button.submit}">Submit</button>
+        </form>
+        <br>
+
+        <a th:href="@{/welcome}" class="btn btn-primary"
+           th:text="#{form.signin.unauthorized}">Sign in unauthorized</a>
+    </div>
+</div>
+<footer>
+    <div th:insert="~{fragments/footer :: copy}"></div>
+</footer>
 </body>
 </html>

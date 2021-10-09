@@ -39,7 +39,7 @@ public class RegistrationController extends ResponseEntityExceptionHandler {
     }
 
     @PostMapping
-    public String registrateNewUser(@Valid @ModelAttribute("user") UserDTO userDTO, BindingResult bindingResult) {
+    public String registrateNewUser(@ModelAttribute("user") @Valid UserDTO userDTO, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             log.info(" >> userDTO: {}", userDTO.toString());

@@ -1,10 +1,6 @@
 package com.baklan.periodicals.dto;
 
-import com.baklan.periodicals.dto.UserRegex;
-import com.baklan.periodicals.entity.user.Role;
 import lombok.*;
-import org.hibernate.validator.constraints.Range;
-import org.springframework.format.annotation.NumberFormat;
 
 import javax.validation.constraints.*;
 
@@ -22,12 +18,12 @@ public class UserDTO {
 
     @NotBlank(message = "{valid.user.name.blank}")
     @Size(min=2, max=20, message = "{valid.user.name.size}")
-    @Pattern(regexp = UserRegex.REGEX_NAME, message = "{valid.user.name.regex}")
+    @Pattern(regexp = Regex.REGEX_NAME, message = "{valid.user.name.regex}")
     private String name;
 
     @NotBlank(message = "{valid.user.name.blank}")
     @Size(min=2, max=20, message = "{valid.user.name.size}")
-    @Pattern(regexp = UserRegex.REGEX_NAME, message = "{valid.user.name.regex}")
+    @Pattern(regexp = Regex.REGEX_NAME, message = "{valid.user.name.regex}")
     private String surname;
 
     @NotBlank(message = "{valid.user.email.blank}")
@@ -36,8 +32,8 @@ public class UserDTO {
     private String email;
 
 
-    @NotBlank()             //message = "{valid.user.password.blank}"
-    @Size(min=6, max=20)    //, message = "{valid.user.password.size}"
+    @NotBlank(message = "{valid.user.password.blank}")             //
+    @Size(min=6, max=20, message = "{valid.user.password.size}")    //
     private String password;
 
 //    @Positive

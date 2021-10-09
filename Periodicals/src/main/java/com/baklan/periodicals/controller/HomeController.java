@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 //@AllArgsConstructor
 @Controller
@@ -23,7 +24,12 @@ public class HomeController {
 
     @GetMapping("/welcome")
     public String welcome(Model model) {
-        return "home.html";
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || auth instanceof AnonymousAuthenticationToken) {
+            return "home.html";
+        }
+        return "redirect:/periodicals";
     }
 
     @GetMapping("/login")
@@ -32,6 +38,6 @@ public class HomeController {
         if (auth == null || auth instanceof AnonymousAuthenticationToken) {
             return "login.html";
         }
-        return "redirect:/welcome";
+        return "redirect:/periodicals";
     }
 }
