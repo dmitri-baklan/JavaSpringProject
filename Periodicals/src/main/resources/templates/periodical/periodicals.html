@@ -1,10 +1,170 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Periodicals-List</title>
-</head>
-<body>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/node_modules/bootstrap-icons/main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
 
+    <title th:text="#{title.periodicals}">Periodicals-List</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+
+<body>
+<header>
+    <div th:insert="~{fragments/header :: copy}"></div>
+</header>
+<div class="bodyContainer">
+
+
+    <div class="sectionMainContent text-center">
+<!--        <div th:if="${productNotFoundError != null}" class="text-center d-flex justify-content-center mt-5">-->
+<!--            <div class="alert alert-danger w-50" role="alert">-->
+<!--                <div>-->
+<!--                    <strong th:text="#{exception.product.not.found}"></strong>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+        <form th:action="@{/periodicals}">
+            <div class="d-flex shadow p-3 mb-5 mt-5 bg-light rounded">
+
+                <div class="flex-grow-1">
+                    <div class=" input-group">
+                        <input type="text" class="form-control" th:placeholder="#{input.periodical.name}"
+                               aria-describedby="basic-addon1" name='searchQuery'
+                               th:value="*{request_params.get('searchQuery')}">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit" th:text="#{button.find}">Find</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ml-2" sec:authorize="hasAnyAuthority('ADMINISTRATOR')">
+                    <a th:href="@{/periodicals/add}">
+                        <div class="bi bi-plus-square btn btn-primary" th:title="#{button.add}"></div>
+                    </a>
+                </div>
+            </div>
+        </form>
+        <div th:if="${periodicals.hasContent()}"
+             class="d-flex justify-content-center shadow p-3 bg-light rounded">
+
+            <div>
+
+                <table class="table table-borderless">
+
+                    <thead class="thead-light">
+
+                        <tr th:with="urlPrefix = '/periodicals?asc='
+                        + ${request_params.get('asc') == null || request_params.get('asc') ? 'false':'true'}">
+                            <div class="list-group">
+                            <th ><a class="list-group-item list-group-item-action list-group-item-primary"
+                                    th:href="@{${urlPrefix}(sortField='name')}"
+                                    th:text="#{table.periodicals.name}">Name</a></th>
+                            <th><a class="list-group-item list-group-item-action list-group-item-primary"
+                                   th:href="@{${urlPrefix}(sortField='price')}"
+                                   th:text="#{table.periodicals.price}">Price</a></th>
+                            <th>
+                                <div class="list-group-item list-group-item-action list-group-item-primary">
+                                    <ul class="navbar-nav">
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                                               role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                                            th:style="'padding: 0'"
+                                               th:text="#{table.periodicals.subject}">Subject
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <li><a class="dropdown-item"
+                                                       th:href="@{${urlPrefix}(subject='NEWS')}"
+                                                       th:text="#{table.periodicals.subject.news}">News</a></li>
+                                                <li><a class="dropdown-item"
+                                                       th:href="@{${urlPrefix}(subject='SPORT')}"
+                                                       th:text="#{table.periodicals.subject.sport}">Sport</a></li>
+                                                <li><a class="dropdown-item"
+                                                       th:href="@{${urlPrefix}(subject='SCIENCE')}"
+                                                       th:text="#{table.periodicals.subject.science}">SCIENCE</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </th>
+                            <th><a class="list-group-item list-group-item-action list-group-item-primary"
+                                   th:href="@{${urlPrefix}(sortField='subscribers')}"
+                                   th:text="#{table.periodicals.subscribers}"></a></th>
+                            </div>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                    <tr scope="row" th:each="periodical: ${periodicals}">
+                        <td class="titleColumn" th:text="${periodical.name}"/>
+                        <td th:text="${periodical.price}"/>
+                        <td th:text="${periodical.subject}"/>
+                        <td th:text="${periodical.subscribers}"/>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div th:if="${periodicals.hasContent()}" class="m-xl-5 d-flex justify-content-center">
+            <div>
+                <nav>
+                    <ul class="pagination flex-wrap" th:with="pageUrlPrefix = '/periodicals?sortField=' +
+					${request_params.get('sortField') == null ? '' :request_params.get('sortField')}
+					+ '&amp;asc=' + ${request_params.get('asc') == null ? 'true' : request_params.get('asc')} +
+					'&amp;searchQuery='
+					+ ${request_params.get('searchQuery') == null  ? '' : request_params.get('searchQuery')}">
+                        <li th:class="${!periodicals.isFirst() ? 'page-item' : 'page-item disabled'}">
+                            <a th:href="@{${pageUrlPrefix}(page='1')}" class="page-link"><b>&laquo;</b></a>
+                        </li>
+
+                        <li th:class="${!periodicals.isFirst() ? 'page-item' : 'page-item disabled'}">
+                            <a th:href="@{${pageUrlPrefix}(page=${periodicals.getNumber()})}"
+                               class="page-link"><b>‹</b></a>
+                        </li>
+
+
+                        <li th:each="i: ${#numbers.sequence(1, periodicals.getTotalPages())}"
+                            th:class="${periodicals.getNumber()+1 != i ? 'page-item' : 'page-item active'}">
+                            <a th:href="@{${pageUrlPrefix}(page=${i})}" class="page-link">[[${i}]]</a>
+                        </li>
+
+
+                        <li th:class="${!periodicals.isLast() ? 'page-item' : 'page-item disabled'}">
+                            <a th:href="@{${pageUrlPrefix}(page=${periodicals.getNumber()+2})}"
+                               class="page-link"><b>›</b></a>
+                        </li>
+
+                        <li th:class="${!periodicals.isLast() ? 'page-item' : 'page-item disabled'}">
+                            <a th:href="@{${pageUrlPrefix}(page=${periodicals.getTotalPages()})}"
+                               class="page-link"><b>&raquo;</b></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+        <h3 th:if="${!periodicals.hasContent()}" class="m-xl-5 d-flex justify-content-center"
+            th:text="#{periodicals.not.found}"></h3>
+
+
+    </div>
+
+</div>
+
+<footer>
+    <div th:insert="~{fragments/footer :: copy}"></div>
+</footer>
 </body>
 </html>

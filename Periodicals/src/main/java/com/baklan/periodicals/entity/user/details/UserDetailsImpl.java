@@ -38,7 +38,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return user.isActive();
     }
 
     @Override
@@ -52,7 +52,7 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     public String toString() {
-        return String.format("User:{email:%s,password:%s,firstName:%s,lastName:%s,role:%s}",
+        return String.format("User:{email:%s,password:%s,name:%s,surname:%s,role:%s}",
                 user.getEmail(),
                 user.getPassword(),
                 user.getName(),

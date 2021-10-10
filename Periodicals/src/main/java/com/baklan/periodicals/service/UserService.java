@@ -34,6 +34,12 @@ public class UserService implements UserDetailsService {
                 orElseThrow(()-> new UsernameNotFoundException(String.format("email %s not found", email))));
     }
 
+    public UserDetails lockUserAccount(String email){
+        UserDetails userDetails = new UserDetailsImpl(
+                userRepository.findByEmail(email).orElseThrow(null));
+        return userDetails;
+    }
+
     public UserDTO getUserByEmailAuth(UserDetails userDetails){
         User user = userRepository.findByEmail(userDetails.getUsername()).orElse(null);
         Objects.requireNonNull(user);

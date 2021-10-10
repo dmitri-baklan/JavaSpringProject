@@ -1,9 +1,11 @@
 package com.baklan.periodicals.entity.user;
 
+import com.baklan.periodicals.entity.periodicals.Periodical;
 import lombok.*;
 
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -40,5 +42,13 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Column
+    private boolean isActive = true;
+
+    @ManyToMany
+    @JoinTable(name = "users_periodicals",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "periodical_id"))
+    List<Periodical> periodicals;
 
 }

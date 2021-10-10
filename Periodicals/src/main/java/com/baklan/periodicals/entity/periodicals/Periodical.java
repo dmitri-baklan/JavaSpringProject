@@ -1,14 +1,17 @@
 package com.baklan.periodicals.entity.periodicals;
 
 
+import com.baklan.periodicals.entity.user.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "periodicals",
         uniqueConstraints = {
@@ -33,5 +36,8 @@ public class Periodical {
 
     @Column
     private Long subscribers;
+
+    @ManyToMany(mappedBy = "periodicals")
+    List<User> users;
 
 }

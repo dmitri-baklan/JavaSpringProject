@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS public.users
     surname varchar(255) NOT NULL,
     password varchar(255) NOT NULL,
     role varchar(255) NOT NULL,
+    is_active boolean NOT NULL,
     CONSTRAINT users_pkey PRIMARY KEY (id),
     CONSTRAINT email UNIQUE (email)
 );
@@ -18,6 +19,7 @@ CREATE TABLE IF NOT EXISTS public.periodicals
     price int8 NOT NULL,
     subscribers int8 NOT NULL,
     CONSTRAINT periodicals_pkey PRIMARY KEY (id)
+    CONSTRAINT name UNIQUE (name)
 );
 
 CREATE TABLE IF NOT EXISTS public.accounts

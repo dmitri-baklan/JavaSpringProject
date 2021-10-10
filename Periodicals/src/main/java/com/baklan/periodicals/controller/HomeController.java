@@ -35,6 +35,8 @@ public class HomeController {
     @GetMapping("/login")
     public String login() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+//        System.out.println(SecurityContextHolder.getContext().toString());
         if (auth == null || auth instanceof AnonymousAuthenticationToken) {
             return "login.html";
         }

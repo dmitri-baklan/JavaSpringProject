@@ -13,7 +13,7 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 @Builder
 @ToString
-public class PeriodicalsDTO {
+public class PeriodicalDTO {
 
     @NotBlank(message = "{}")
     @Size(min=2, max=20, message = "{}")
@@ -26,6 +26,7 @@ public class PeriodicalsDTO {
     @NotNull(message = "{}")
     @Range(min=10,max=1000, message = "{}")
     private Long price;
+
 
     private Long subscribers;
 }

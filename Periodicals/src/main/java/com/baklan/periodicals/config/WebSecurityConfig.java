@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
@@ -38,6 +40,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout().permitAll()
                 .logoutSuccessUrl("/login");
+//                .and()
+//                .sessionManagement()
+//                .invalidSessionUrl("/home")
+//                .maximumSessions(1)
+//                .maxSessionsPreventsLogin(true)
+//                .sessionRegistry(sessionRegistry());
     }
 
     @Override
@@ -53,4 +61,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         provider.setUserDetailsService(userService);
         return provider;
     }
+
+//    @Bean(name="sessionRegistry")
+//    SessionRegistry sessionRegistry() {
+//        return new SessionRegistryImpl();
+//    }
+
 }
