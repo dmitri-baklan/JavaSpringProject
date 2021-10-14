@@ -30,7 +30,7 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (auth == null || auth instanceof AnonymousAuthenticationToken) {
-            return "login.html";
+            return "login";
         }
         return "user/profile";
     }

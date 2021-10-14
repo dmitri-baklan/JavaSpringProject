@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 //@AllArgsConstructor
 @Controller
@@ -32,11 +33,9 @@ public class HomeController {
         return "redirect:/periodicals";
     }
 
-    @GetMapping("/login")
+    @RequestMapping("/login")
     public String login() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-//        System.out.println(SecurityContextHolder.getContext().toString());
         if (auth == null || auth instanceof AnonymousAuthenticationToken) {
             return "login.html";
         }

@@ -49,6 +49,6 @@ public class User {
     @JoinTable(name = "users_periodicals",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "periodical_id"))
-    List<Periodical> periodicals;
+    Set<Periodical> periodicals;
 
 }

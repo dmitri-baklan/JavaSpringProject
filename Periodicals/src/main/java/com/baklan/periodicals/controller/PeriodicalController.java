@@ -1,6 +1,8 @@
 package com.baklan.periodicals.controller;
 
+import com.baklan.periodicals.dto.PeriodicalDTO;
 import com.baklan.periodicals.entity.periodicals.Periodical;
+import com.baklan.periodicals.entity.user.User;
 import com.baklan.periodicals.service.PeriodicalService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -9,13 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
+import javax.validation.Valid;
+import java.util.*;
 
 @AllArgsConstructor
 @RequestMapping("/periodicals")
@@ -35,10 +35,11 @@ public class PeriodicalController {
                                      @RequestParam(required = false, defaultValue = "1") Integer page,
                                      @RequestParam(required = false, defaultValue = "5") Integer size,
                                      @RequestParam(required = false, defaultValue = "") String searchQuery,
-                                     HttpServletRequest httpServletRequest,
                                      Model model){
-        model.addAttribute("periodicals",
-                periodicalService.getAllPeriodicals(sortField, subject, asc, page, size, searchQuery));
+        log.info("[PAGINATION] Input params: sortField:[{}], subject:[{}], direction:[{}], page:[{}], size:[{}], searchQuery:[{}]",
+                sortField, subject, asc, page, size, searchQuery);
+        Page<Periodical> periodicals =  periodicalService.getAllPeriodicals(sortField, subject, asc, page, size, searchQuery);
+        model.addAttribute("periodicals", periodicals);
 
         Map<String, String> request_params = new HashMap<String, String>();
         request_params.put("sortField", sortField);
@@ -51,4 +52,77 @@ public class PeriodicalController {
 
         return "periodical/periodicals";
     }
+
+    @GetMapping("/add")
+    public String getAddPeriodical(Model model){
+        model.addAttribute("periodical", new PeriodicalDTO());
+        return "periodical/periodicalAdd";
+    }
+
+    @GetMapping("/{id}")
+    public String getPeriodicalPage(@PathVariable("id") Long id, Model model){
+        Periodical periodical = periodicalService.getPeriodicalById(id);
+        model.addAttribute("periodical",periodical);
+
+        model.addAttribute("users", periodical.getUsers());
+        return "periodical/periodicalPage";
+    }
+    @GetMapping("/{id}/edit")
+    public String getPeriodicalPageEdit(@PathVariable("id") Long id, Model model){
+        Periodical periodical = periodicalService.getPeriodicalById(id);
+        model.addAttribute("periodical",periodical);
+        return "periodical/periodicalEdit";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String editPeriodical(@PathVariable("id") Long id,
+                                 @ModelAttribute("periodical") @Valid PeriodicalDTO periodicalDTO,
+                                 BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            log.info(" >> userDTO: {}", periodicalDTO.toString());
+            return "periodical/periodicalEdit";
+        }
+
+        try {
+            periodicalService.updatePeriodical(periodicalDTO, id);
+        } catch (Exception ex) {
+            log.info(" >> userDTO: {}", periodicalDTO.toString());
+            bindingResult.rejectValue("name", "valid.periodical.name.exists");
+            return "periodical/periodicalEdit";
+        }
+
+        return "redirect:/periodicals";
+    }
+
+
+    @PostMapping("/add")
+    public String addPeriodical(@ModelAttribute("periodical") @Valid PeriodicalDTO periodicalDTO, BindingResult bindingResult){
+
+        if (bindingResult.hasErrors()) {
+            log.info(" >> userDTO: {}", periodicalDTO.toString());
+            return "periodical/periodicalAdd";
+        }
+
+        try {
+            periodicalService.savePeriodical(periodicalDTO);
+        } catch (Exception ex) {
+            log.info(" >> userDTO: {}", periodicalDTO.toString());
+            bindingResult.rejectValue("name", "valid.periodical.name.exists");
+            return "periodical/periodicalAdd";
+        }
+
+        return "redirect:/periodicals";
+    }
+
+    @GetMapping("/{id}/delete")
+    public String deletePeriodical(@PathVariable("id") Long id){
+        try{
+            periodicalService.deletePeriodical(id);
+        } catch (Exception ex){
+            log.info(ex.getMessage());
+        }
+
+        return "redirect:/periodicals";
+    }
+
 }

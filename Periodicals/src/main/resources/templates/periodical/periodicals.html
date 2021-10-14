@@ -44,14 +44,15 @@
                                aria-describedby="basic-addon1" name='searchQuery'
                                th:value="*{request_params.get('searchQuery')}">
                         <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit" th:text="#{button.find}">Find</button>
+                            <button class="btn btn-primary" type="submit" th:text="#{button.find}">Search</button>
                         </div>
                     </div>
                 </div>
-                <div class="ml-2" sec:authorize="hasAnyAuthority('ADMINISTRATOR')">
-                    <a th:href="@{/periodicals/add}">
-                        <div class="bi bi-plus-square btn btn-primary" th:title="#{button.add}"></div>
-                    </a>
+                <div class="d-grid gap-2 d-md-block" sec:authorize="hasAnyAuthority('ADMINISTRATOR')">
+                    <a class="btn btn-primary" type="button"
+                            th:style="'margin-left: 25px'"
+                            th:title="#{button.add}"
+                            th:href="@{/periodicals/add}">Add</a>
                 </div>
             </div>
         </form>
@@ -60,7 +61,7 @@
 
             <div>
 
-                <table class="table table-borderless">
+                <table class="table table-borderless table-hover">
 
                     <thead class="thead-light">
 
@@ -106,12 +107,22 @@
 
                     </thead>
                     <tbody>
-                    <tr scope="row" th:each="periodical: ${periodicals}">
-                        <td class="titleColumn" th:text="${periodical.name}"/>
-                        <td th:text="${periodical.price}"/>
-                        <td th:text="${periodical.subject}"/>
-                        <td th:text="${periodical.subscribers}"/>
-                    </tr>
+
+                            <tr scope="row" th:each="periodical: ${periodicals}">
+
+                                <td class="titleColumn" >
+                                         <a class="alert-link"
+                                            th:href="@{/periodicals/{id}(id=${periodical.id})}"
+                                            th:text="${periodical.name}"></a>
+
+                                </td>
+                                <td th:text="${periodical.price}"/>
+                                <td th:text="${periodical.subject}"/>
+                                <td th:text="${periodical.users.size()}"/>
+
+                            </tr>
+
+
                     </tbody>
                 </table>
             </div>
@@ -124,12 +135,15 @@
 					${request_params.get('sortField') == null ? '' :request_params.get('sortField')}
 					+ '&amp;asc=' + ${request_params.get('asc') == null ? 'true' : request_params.get('asc')} +
 					'&amp;searchQuery='
-					+ ${request_params.get('searchQuery') == null  ? '' : request_params.get('searchQuery')}">
-                        <li th:class="${!periodicals.isFirst() ? 'page-item' : 'page-item disabled'}">
+					+ ${request_params.get('searchQuery') == null  ? '' : request_params.get('searchQuery')} +
+					'&amp;subject='
+                    + ${request_params.get('subject') == null ? '' : request_params.get('subject')}">
+
+                        <li th:class="${periodicals.isFirst() ? 'page-item disabled' : 'page-item' }">
                             <a th:href="@{${pageUrlPrefix}(page='1')}" class="page-link"><b>&laquo;</b></a>
                         </li>
 
-                        <li th:class="${!periodicals.isFirst() ? 'page-item' : 'page-item disabled'}">
+                        <li th:class="${periodicals.isFirst() ? 'page-item disabled' : 'page-item'}">
                             <a th:href="@{${pageUrlPrefix}(page=${periodicals.getNumber()})}"
                                class="page-link"><b>‹</b></a>
                         </li>
@@ -141,12 +155,12 @@
                         </li>
 
 
-                        <li th:class="${!periodicals.isLast() ? 'page-item' : 'page-item disabled'}">
+                        <li th:class="${periodicals.isLast() ? 'page-item disabled' : 'page-item'}">
                             <a th:href="@{${pageUrlPrefix}(page=${periodicals.getNumber()+2})}"
                                class="page-link"><b>›</b></a>
                         </li>
 
-                        <li th:class="${!periodicals.isLast() ? 'page-item' : 'page-item disabled'}">
+                        <li th:class="${periodicals.isLast() ? 'page-item disabled' : 'page-item'}">
                             <a th:href="@{${pageUrlPrefix}(page=${periodicals.getTotalPages()})}"
                                class="page-link"><b>&raquo;</b></a>
                         </li>

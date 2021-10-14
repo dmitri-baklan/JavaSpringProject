@@ -44,6 +44,12 @@ public class PeriodicalService {
         periodicalRepository.save(periodical);
     }
 
+
+    public Periodical getPeriodicalById(Long id){
+        return periodicalRepository.findById(id).orElseThrow(null);
+    }
+
+
     public Page<Periodical> getAllPeriodicals(String sortField, String subject,
                                               boolean asc, int page,
                                               int size, String searchQuery){
@@ -58,11 +64,23 @@ public class PeriodicalService {
                 : periodicalRepository.findByName(searchQuery, pageable);
     }
 
-    private Pageable buildPage(String sortField, boolean asc, int page, int size) {
-//
-//        int page = Integer.parseInt(pageS);
-//        int size = Integer.parseInt(sizeS);
+    public void updatePeriodical(PeriodicalDTO periodicalDTO, Long id){
+        periodicalRepository.save(
+                Periodical.builder()
+                        .id(id)
+                        .name(periodicalDTO.getName())
+                        .subject(periodicalDTO.getSubject())
+                        .price(periodicalDTO.getPrice())
+                        .subscribers(periodicalDTO.getSubscribers())
+                        .build()
+        );
+    }
 
+    public void deletePeriodical(Long id){
+        periodicalRepository.deleteById(id);
+    }
+
+    private Pageable buildPage(String sortField, boolean asc, int page, int size) {
         Optional<Sort> sort = asc ? Optional.of(Sort.by(sortField).ascending())
                 : Optional.of(Sort.by(sortField).descending());
 

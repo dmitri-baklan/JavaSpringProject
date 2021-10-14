@@ -15,18 +15,19 @@ import javax.validation.constraints.*;
 @ToString
 public class PeriodicalDTO {
 
-    @NotBlank(message = "{}")
-    @Size(min=2, max=20, message = "{}")
-    @Pattern(regexp = Regex.REGEX_NAME, message = "{}")
+    @NotBlank(message = "{valid.periodical.blank}")
+    @Size(min=2, max=20, message = "{valid.periodical.size}")
+//    @Pattern(regexp = Regex.REGEX_NAME, message = "{valid.periodical.name.regex}")
     private String name;
 
     private Subject subject;
 
-    @Positive
-    @NotNull(message = "{}")
-    @Range(min=10,max=1000, message = "{}")
+
+    @NotNull(message = "{valid.periodical.price}")
+    @Min(value = 1)
+    @Max(value = 1000)
     private Long price;
 
 
-    private Long subscribers;
+    private Long subscribers=0L;
 }

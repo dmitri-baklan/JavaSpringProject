@@ -32,11 +32,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**", "/images/**").permitAll()
                 .antMatchers("/registration","/login", "/welcome" ).anonymous()
                 .antMatchers("/profile/**", "/periodicals", "/periodicals/{\\d}").fullyAuthenticated()
-                .antMatchers("/periodicals/{\\d}/edit").hasAuthority("ADMINISTRATOR")
+                .antMatchers("/periodicals/{\\d}/edit", "periodicals/add").hasAuthority("ADMINISTRATOR")
                 .and()
                 .formLogin().permitAll()
                 .loginPage("/login")
-                .defaultSuccessUrl("/profile", true)
+                .defaultSuccessUrl("/periodicals", true)
                 .and()
                 .logout().permitAll()
                 .logoutSuccessUrl("/login");

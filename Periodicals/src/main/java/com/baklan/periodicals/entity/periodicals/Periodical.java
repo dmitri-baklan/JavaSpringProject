@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -38,6 +39,6 @@ public class Periodical {
     private Long subscribers;
 
     @ManyToMany(mappedBy = "periodicals")
-    List<User> users;
+    Set<User> users;
 
 }

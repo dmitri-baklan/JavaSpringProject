@@ -46,7 +46,7 @@
 <!--                                </span>-->
                                 <span sec:authentication="name" class=" mr-1">Email</span>
                                 <span sec:authorize="hasAnyAuthority('READER')"
-                                      class="badge bg-primary"
+                                      class="badge bg-success"
                                       th:text="#{role.reader}"> Reader</span>
                                 <span sec:authorize="hasAnyAuthority('ADMINISTRATOR')"
                                       class="badge bg-primary"
