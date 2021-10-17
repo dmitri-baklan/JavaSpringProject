@@ -31,8 +31,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/css/**", "/images/**").permitAll()
                 .antMatchers("/registration","/login", "/welcome" ).anonymous()
-                .antMatchers("/profile/**", "/periodicals", "/periodicals/{\\d}").fullyAuthenticated()
-                .antMatchers("/periodicals/{\\d}/edit", "periodicals/add").hasAuthority("ADMINISTRATOR")
+                .antMatchers("/profile",
+                        "/profile/edit",
+                        "/periodicals",
+                        "/periodicals/{\\d}").fullyAuthenticated()
+                .antMatchers("/profile/replenishment").hasAuthority("READER")
+                .antMatchers("/periodicals/{\\d}/edit",
+                        "periodicals/add",
+                        "/profile/readers",
+                        "/profile/readers/{\\d").hasAuthority("ADMINISTRATOR")
                 .and()
                 .formLogin().permitAll()
                 .loginPage("/login")

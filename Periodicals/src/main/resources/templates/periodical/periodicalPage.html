@@ -52,11 +52,10 @@
                 <span class="fs-5" th:text="#{page.periodical.subscribers}">Subscribers</span>
                 <span class="fs-5" th:text="${periodical.users.size()}"></span>
             </div>
-            <div class="col">
-                <p class="fs-3" th:text="#{page.periodical.users.list}"
-                   sec:authorize="hasAnyAuthority('ADMINISTRATOR')"></p>
-                <table class="table table-borderless table-hover table-scroll"
-                       sec:authorize="hasAnyAuthority('ADMINISTRATOR')">
+            <div class="col" sec:authorize="hasAnyAuthority('ADMINISTRATOR')">
+                <p class="fs-3" th:text="#{page.periodical.users.list}"></p>
+                <table class="table table-borderless table-hover table-scroll">
+<!--                       sec:authorize="hasAnyAuthority('ADMINISTRATOR')">-->
 
                     <thead class="thead-light">
                     <!--            th:with="urlPrefix = '/periodicals/{'+${periodical.id}+'}'"-->
@@ -82,15 +81,15 @@
                     </tbody>
                 </table>
             </div>
+
+        </div>
+        <div class="row">
             <div class="col-6 col-sm-4" sec:authorize="hasAnyAuthority('ADMINISTRATOR')">
-                <form th:method="GET" th:action="@{/periodicals/{id}/delete(id=${periodical.id})}" >
-                    <button type="submit" class="btn btn-outline-danger"
-                    value="Delete">Delete periodical</button>
-                </form>
-
-            </div>
-
-
+            <form th:method="GET" th:action="@{/periodicals/{id}/delete(id=${periodical.id})}" >
+                <button type="submit" class="btn btn-outline-danger"
+                        value="Delete">Delete periodical</button>
+            </form>
+        </div>
         </div>
 
 

@@ -43,6 +43,9 @@ public class User {
     private Role role;
 
     @Column
+    private Long balance;
+
+    @Column
     private boolean isActive = true;
 
     @ManyToMany

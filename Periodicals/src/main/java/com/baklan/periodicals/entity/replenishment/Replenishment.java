@@ -1,7 +1,8 @@
 package com.baklan.periodicals.entity.replenishment;
 
 import com.baklan.periodicals.dto.UserDTO;
-import com.baklan.periodicals.entity.account.Account;
+
+import com.baklan.periodicals.entity.user.User;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -15,6 +16,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "replenishments")
 public class Replenishment {
@@ -27,10 +29,10 @@ public class Replenishment {
     private Long sum;
 
     @ManyToOne
-    @JoinColumn(name = "account_id", nullable = false)
-    private Account account;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @Column
-    @DateTimeFormat(pattern = "dd-MM-yyyy HH-mm-ss")
+    @DateTimeFormat(pattern = "mm-dd-yyyy")
     private LocalDateTime time;
 }

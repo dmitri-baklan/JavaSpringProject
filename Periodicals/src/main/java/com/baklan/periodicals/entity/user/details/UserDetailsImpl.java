@@ -20,6 +20,10 @@ public class UserDetailsImpl implements UserDetails {
                 new SimpleGrantedAuthority(user.getRole().name());
         return Collections.singleton(simpleGrantedAuthority);
     }
+//
+//    public Long getId(){
+//        return user.getId();
+//    }
 
     @Override
     public String getPassword() {

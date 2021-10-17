@@ -17,7 +17,7 @@ public class PeriodicalDTO {
 
     @NotBlank(message = "{valid.periodical.blank}")
     @Size(min=2, max=20, message = "{valid.periodical.size}")
-//    @Pattern(regexp = Regex.REGEX_NAME, message = "{valid.periodical.name.regex}")
+    @Pattern(regexp = Regex.REGEX_NAME, message = "{valid.periodical.name.regex}")
     private String name;
 
     private Subject subject;
