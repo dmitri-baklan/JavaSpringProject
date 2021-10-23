@@ -35,8 +35,6 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-
-
     @Autowired
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -48,8 +46,7 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public void changeIsActive(Long id)throws UserNotFoundException{
-        User user = userRepository.findById(id)
-                .filter(p->p.getRole().equals(Role.READER))
+        User user = userRepository.findRedaerById(id)
                 .orElseThrow(UserNotFoundException::new);
 
         user.setActive(!user.isActive());
@@ -66,8 +63,8 @@ public class UserService implements UserDetailsService {
         Pageable pageable = buildPage("Name", true, page, size);
         return searchQuery.isBlank() ? userRepository.findByRole(Role.READER, pageable)
                 : userRepository.findByEmail(searchQuery, pageable);
-
     }
+
     @Transactional
     public void signUpUser(UserDTO userDTO) throws UserNotFoundException {
 
@@ -81,11 +78,9 @@ public class UserService implements UserDetailsService {
                 .surname(userDTO.getSurname())
                 .role(Role.valueOf(userDTO.getRole()))
                 .isActive(true)
+                .balance(Role.valueOf(userDTO.getRole()).equals(Role.READER) ? 0L:null)
                 .build();
 
-        if(Role.valueOf(userDTO.getRole()).equals(Role.READER)){
-            user.setBalance(0L);
-        }
         userRepository.save(user);
     }
 
@@ -107,13 +102,6 @@ public class UserService implements UserDetailsService {
                 .balance(userToUpdate.getBalance())
                 .build());
     }
-
-//    @Transactional
-//    public void replenishBalance(String email, Long sum)throws UserNotFoundException{
-//        User user = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
-//        user.setBalance(user.getBalance()+sum);
-//
-//    }
 
     private Pageable buildPage(String sortField, boolean asc, int page, int size) {
         Optional<Sort> sort = asc ? Optional.of(Sort.by(sortField).ascending())

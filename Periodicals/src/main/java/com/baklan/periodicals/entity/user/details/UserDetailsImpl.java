@@ -20,10 +20,6 @@ public class UserDetailsImpl implements UserDetails {
                 new SimpleGrantedAuthority(user.getRole().name());
         return Collections.singleton(simpleGrantedAuthority);
     }
-//
-//    public Long getId(){
-//        return user.getId();
-//    }
 
     @Override
     public String getPassword() {
@@ -56,11 +52,12 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     public String toString() {
-        return String.format("User:{email:%s,password:%s,name:%s,surname:%s,role:%s}",
+        return String.format("User:{email:%s,password:%s,name:%s,surname:%s,role:%s,balance:%s}",
                 user.getEmail(),
                 user.getPassword(),
                 user.getName(),
                 user.getSurname(),
-                user.getRole().name());
+                user.getRole().name(),
+                user.getBalance());
     }
 }

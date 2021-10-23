@@ -29,17 +29,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception{
         httpSecurity.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/css/**", "/images/**").permitAll()
-                .antMatchers("/registration","/login", "/welcome" ).anonymous()
+                .antMatchers("/css/**", "/images/**", "/welcome" ).permitAll()
+                .antMatchers("/registration","/login").anonymous()
                 .antMatchers("/profile",
                         "/profile/edit",
                         "/periodicals",
                         "/periodicals/{\\d}").fullyAuthenticated()
-                .antMatchers("/profile/replenishment").hasAuthority("READER")
+                .antMatchers("/profile/replenishment", "/replenishments").hasAuthority("READER")
                 .antMatchers("/periodicals/{\\d}/edit",
                         "periodicals/add",
                         "/profile/readers",
-                        "/profile/readers/{\\d").hasAuthority("ADMINISTRATOR")
+                        "/profile/readers/{\\d}").hasAuthority("ADMINISTRATOR")
                 .and()
                 .formLogin().permitAll()
                 .loginPage("/login")
@@ -47,12 +47,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout().permitAll()
                 .logoutSuccessUrl("/login");
-//                .and()
-//                .sessionManagement()
-//                .invalidSessionUrl("/home")
-//                .maximumSessions(1)
-//                .maxSessionsPreventsLogin(true)
-//                .sessionRegistry(sessionRegistry());
     }
 
     @Override
@@ -68,10 +62,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         provider.setUserDetailsService(userService);
         return provider;
     }
-
-//    @Bean(name="sessionRegistry")
-//    SessionRegistry sessionRegistry() {
-//        return new SessionRegistryImpl();
-//    }
-
 }

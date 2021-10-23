@@ -22,12 +22,10 @@ public class PeriodicalDTO {
 
     private Subject subject;
 
-
     @NotNull(message = "{valid.periodical.price}")
     @Min(value = 1)
     @Max(value = 1000)
     private Long price;
-
 
     private Long subscribers=0L;
 }

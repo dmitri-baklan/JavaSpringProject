@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-//@AllArgsConstructor
+@AllArgsConstructor
 @Controller
 public class HomeController {
     private static final Logger log = LoggerFactory.getLogger(HomeController.class);
@@ -25,12 +25,7 @@ public class HomeController {
 
     @GetMapping("/welcome")
     public String welcome(Model model) {
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth == null || auth instanceof AnonymousAuthenticationToken) {
-            return "home.html";
-        }
-        return "redirect:/periodicals";
+        return "home.html";
     }
 
     @RequestMapping("/login")

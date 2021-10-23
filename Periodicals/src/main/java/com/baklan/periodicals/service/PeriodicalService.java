@@ -5,6 +5,7 @@ import com.baklan.periodicals.entity.periodicals.Periodical;
 import com.baklan.periodicals.entity.periodicals.Subject;
 import com.baklan.periodicals.entity.user.Role;
 import com.baklan.periodicals.entity.user.User;
+import com.baklan.periodicals.exception.NotEnoughBalanceException;
 import com.baklan.periodicals.exception.PeriodicalNotFoundException;
 import com.baklan.periodicals.exception.UserNotFoundException;
 import com.baklan.periodicals.exception.UserNotSavedException;
@@ -25,6 +26,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToMany;
 import javax.transaction.Transactional;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -40,8 +43,9 @@ public class PeriodicalService {
     @Autowired
     UserRepository userRepository;
 
-//    @Transactional
+    @Transactional
     public void savePeriodical(PeriodicalDTO periodicalDTO){
+
         Periodical periodical = Periodical
                 .builder()
                 .name(periodicalDTO.getName())
@@ -53,11 +57,9 @@ public class PeriodicalService {
         periodicalRepository.save(periodical);
     }
 
-
-    public Periodical getPeriodicalById(Long id){
-        return periodicalRepository.findById(id).orElseThrow(null);
+    public Periodical getPeriodicalById(Long id)throws PeriodicalNotFoundException{
+        return periodicalRepository.findById(id).orElseThrow(PeriodicalNotFoundException::new);
     }
-
 
     public Page<Periodical> getAllPeriodicals(String sortField, String subject,
                                               boolean asc, int page,
@@ -73,6 +75,7 @@ public class PeriodicalService {
                 : periodicalRepository.findByName(searchQuery, pageable);
     }
 
+    @Transactional
     public void updatePeriodical(PeriodicalDTO periodicalDTO, Long id){
         periodicalRepository.save(
                 Periodical.builder()
@@ -105,10 +108,14 @@ public class PeriodicalService {
         User user = userRepository.findByEmail(userDetails.getUsername())
                 .orElseThrow(UserNotFoundException::new);
 
-        if(!user.getPeriodicals().remove(periodical)
-                && (user.getBalance() - periodical.getPrice() >= 0)){
-            user.setBalance(user.getBalance() - periodical.getPrice());
-            user.getPeriodicals().add(periodical);
+        if(!user.getPeriodicals().remove(periodical)) {
+            if (user.getBalance() - periodical.getPrice() >= 0) {
+                user.setBalance(user.getBalance() - periodical.getPrice());
+                user.getPeriodicals().add(periodical);
+                userRepository.save(user);
+                return;
+            }
+            throw new NotEnoughBalanceException();
         }
         userRepository.save(user);
     }

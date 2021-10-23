@@ -37,7 +37,6 @@
                 <div sec:authorize="hasAnyAuthority('READER')">
                     <div>
                         <span class="fs-5" th:text="#{page.profile.balance}">Balance</span>
-<!--                        th:if="${user != null}"-->
                         <span  class="fs-5" th:text="${user.balance}"></span>
                         <br>
                         <a type="button" class="btn btn-outline-primary"

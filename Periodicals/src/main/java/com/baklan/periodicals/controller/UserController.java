@@ -50,20 +50,20 @@ public class UserController {
                 .getContext()
                 .getAuthentication()
                 .getPrincipal();
+
         User user = userService.getUserByEmailAuth(userDetails);
-        log.info("we in GetMapping /profile");
-        log.info("getUserProfile user >> {}", user);
-        log.info("Balance: " + user.getBalance());
         model.addAttribute("user", user);
         model.addAttribute("periodicals", user.getPeriodicals());
-//        model.addAttribute("replenishment", new ReplenishmentDTO());
-//        model.addAttribute("")
         return "user/profile";
     }
 
     @GetMapping("/edit")
     public String editUserProfile(Model model){
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
+
         User user = userService.getUserByEmailAuth(userDetails);
         user.setPassword(userDetails.getPassword());
         model.addAttribute("user", user);
@@ -74,6 +74,7 @@ public class UserController {
     @PostMapping("/edit")
     public String editPeriodical(@ModelAttribute("user") @Valid UserDTO userDTO,
                                  BindingResult bindingResult){
+
         if (bindingResult.hasErrors()) {
             log.info(" >> userDTO: {}", userDTO.toString());
             return "user/editUser";
@@ -110,7 +111,6 @@ public class UserController {
 
     @PostMapping("/readers/{id}")
     public String changeReaderStatus(@ModelAttribute("id") Long id){
-//        log.info("user info:{}", user.toString());
         try{
             userService.changeIsActive(id);
         } catch (Exception ex){
@@ -129,7 +129,7 @@ public class UserController {
     @PostMapping("/replenishment")
     public String replenishReaderBalance(@ModelAttribute("replenishment") @Valid ReplenishmentDTO replemishmentDTO,
                                          BindingResult bindingResult){
-        log.info("we in Postamappnig /replenishment");
+
         if (bindingResult.hasErrors()) {
             log.info(" >> replemishmentDTO: {}", replemishmentDTO.toString());
             return "user/replenishment";
@@ -142,8 +142,7 @@ public class UserController {
         try {
             replenishmentService.replenishBalance(userDetails, replemishmentDTO);
         } catch (Exception ex) {
-            log.info(" >> 'ex' replemishmentDTO: {}", bindingResult.toString());
-//            bindingResult.rejectValue("name", "valid.user.name.exists");
+            log.info(" >> 'ex' replenishReaderBalance: {}", ex.getMessage());
             return "redirect:/profile";
         }
 

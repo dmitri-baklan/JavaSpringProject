@@ -47,6 +47,7 @@ public class RegistrationController extends ResponseEntityExceptionHandler {
         }
 
         try {
+
             userService.signUpUser(userDTO);
         } catch (Exception ex) {
             log.info(" >> userDTO: {}", userDTO.toString());

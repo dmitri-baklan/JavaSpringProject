@@ -54,12 +54,6 @@
                             th:errorClass="is-invalid"
                     th:hidden="true">
                 </div>
-
-<!--                <div class="col">-->
-
-<!--                </div>-->
-
-<!--                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="invalid-feedback"></div>-->
                 <br>
                 <div class="col">
                     <input type="password" class="form-control" id="exampleInputPassword1"
@@ -69,39 +63,6 @@
                     <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="invalid-feedback"></div>
                     <div id="passwordlHelp" class="form-text" th:text="#{form.signup.password.help}"></div>
                 </div>
-<!--                <br>-->
-<!--                <div class="pb-4 d-flex justify-content-center">-->
-<!--                    <div class="fs-4">-->
-<!--                        <div sec:authorize="hasAnyAuthority('READER')">-->
-<!--                    <span class="badge bg-success"-->
-<!--                          th:text="#{role.reader}"  th:name="role"-->
-<!--                          value="READER"> Reader</span>-->
-
-<!--                        </div>-->
-<!--                        <div sec:authorize="hasAnyAuthority('ADMINISTRATOR')">-->
-<!--                    <span class="badge bg-primary"-->
-<!--                          th:text="#{role.administrator}"-->
-<!--                          th:name="role"-->
-<!--                          value="ADMINISTRATOR">Administrator</span>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--                <div class="pb-4 d-flex justify-content-center">-->
-<!--                    <div class="custom-control custom-radio mx-2">-->
-<!--                        <input type="radio" checked id="customRadio1" name="role" class="custom-control-input"-->
-<!--                               value="READER">-->
-<!--                        <label class="custom-control-label" for="customRadio1"-->
-<!--                               th:text="#{radio.role.reader}">Redaer</label>-->
-<!--                    </div>-->
-<!--                    <div class="custom-control custom-radio mx-2">-->
-<!--                        <input type="radio" id="customRadio2" name="role" class="custom-control-input"-->
-<!--                               value="ADMINISTRATOR" th:field="*{role}">-->
-<!--                        <label class="custom-control-label" for="customRadio2"-->
-<!--                               th:text="#{radio.role.administrator}">Administrator</label>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <br>-->
                 <div class="col">
                     <button type="submit" class="btn btn-primary" th:text="#{button.submit}"
                     >Submit</button>

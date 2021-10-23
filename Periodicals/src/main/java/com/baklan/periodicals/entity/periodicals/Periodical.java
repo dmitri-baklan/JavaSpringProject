@@ -40,5 +40,4 @@ public class Periodical {
 
     @ManyToMany(mappedBy = "periodicals")
     Set<User> users;
-
 }

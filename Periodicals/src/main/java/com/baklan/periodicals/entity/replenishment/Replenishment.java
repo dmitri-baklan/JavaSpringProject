@@ -33,6 +33,6 @@ public class Replenishment {
     private User user;
 
     @Column
-    @DateTimeFormat(pattern = "mm-dd-yyyy")
+    @DateTimeFormat(pattern = "MM-dd-yyyy HH:mm:ss")
     private LocalDateTime time;
 }
