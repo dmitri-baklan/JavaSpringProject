@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
     private static final Logger log = LoggerFactory.getLogger(HomeController.class);
 
-
     @GetMapping("/")
     public String root(Model model) {
         return "redirect:/welcome";

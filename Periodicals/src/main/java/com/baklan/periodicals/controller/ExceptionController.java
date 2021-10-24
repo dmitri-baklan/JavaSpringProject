@@ -16,9 +16,7 @@ import java.net.http.HttpClient;
 public class ExceptionController {
 
     @ExceptionHandler({NotEnoughBalanceException.class})
-    public String handlePeriodicalsSubscription(HttpServletRequest request,
-                                    NotEnoughBalanceException e,
-                                    RedirectAttributes redirectAttributest){
+    public String handlePeriodicalsSubscription(RedirectAttributes redirectAttributest){
 
         redirectAttributest.addFlashAttribute("NotEnoughBalanceError", true);
         return "redirect:/periodicals";
