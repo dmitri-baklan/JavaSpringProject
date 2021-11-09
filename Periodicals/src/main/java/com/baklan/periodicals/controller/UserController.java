@@ -1,23 +1,16 @@
 package com.baklan.periodicals.controller;
 
-import com.baklan.periodicals.dto.PeriodicalDTO;
 import com.baklan.periodicals.dto.ReplenishmentDTO;
 import com.baklan.periodicals.dto.UserDTO;
-import com.baklan.periodicals.entity.periodicals.Periodical;
 import com.baklan.periodicals.entity.user.User;
 import com.baklan.periodicals.service.ReplenishmentService;
 import com.baklan.periodicals.service.UserService;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import org.dom4j.rule.Mode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -89,7 +82,7 @@ public class UserController {
     }
 
     @GetMapping("/readers")
-    public String getPeriodicalsPage(@RequestParam(required = false, defaultValue = "1") Integer page,
+    public String getReadersPage(@RequestParam(required = false, defaultValue = "1") Integer page,
                                      @RequestParam(required = false, defaultValue = "8") Integer size,
                                      @RequestParam(required = false, defaultValue = "") String searchQuery,
                                      Model model){

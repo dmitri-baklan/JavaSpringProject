@@ -49,8 +49,8 @@
                 <div class="d-grid gap-2 d-md-block" sec:authorize="hasAnyAuthority('ADMINISTRATOR')">
                     <a class="btn btn-primary" type="button"
                             th:style="'margin-left: 25px'"
-                            th:title="#{button.add}"
-                            th:href="@{/periodicals/add}">Add</a>
+                            th:text="#{button.add}"
+                            th:href="@{/periodicals/add}">Add periodical</a>
                 </div>
             </div>
         </form>
@@ -132,7 +132,7 @@
                                         <div th:text="${periodical.subject}" ></div>
                                     </td>
                                     <td  class="align-middle">
-                                        <div th:text="${periodical.users.size()}" ></div>
+                                        <div th:text="${periodical.subscribers}" ></div>
                                     </td>
                             </tr>
                     </tbody>
@@ -149,25 +149,25 @@
 					+ ${request_params.get('searchQuery') == null  ? '' : request_params.get('searchQuery')} +
 					'&amp;subject='
                     + ${request_params.get('subject') == null ? '' : request_params.get('subject')}">
-                        <li th:class="${periodicals.isFirst() ? 'page-item disabled' : 'page-item' }">
-                            <a th:href="@{${pageUrlPrefix}(page='1')}" class="page-link"><b>&laquo;</b></a>
-                        </li>
-                        <li th:class="${periodicals.isFirst() ? 'page-item disabled' : 'page-item'}">
-                            <a th:href="@{${pageUrlPrefix}(page=${periodicals.getNumber()})}"
-                               class="page-link"><b>‹</b></a>
-                        </li>
+<!--                        <li th:class="${periodicals.isFirst() ? 'page-item disabled' : 'page-item' }">-->
+<!--                            <a th:href="@{${pageUrlPrefix}(page='1')}" class="page-link"><b>&laquo;</b></a>-->
+<!--                        </li>-->
+<!--                        <li th:class="${periodicals.isFirst() ? 'page-item disabled' : 'page-item'}">-->
+<!--                            <a th:href="@{${pageUrlPrefix}(page=${periodicals.getNumber()})}"-->
+<!--                               class="page-link"><b>‹</b></a>-->
+<!--                        </li>-->
                         <li th:each="i: ${#numbers.sequence(1, periodicals.getTotalPages())}"
                             th:class="${periodicals.getNumber()+1 != i ? 'page-item' : 'page-item active'}">
                             <a th:href="@{${pageUrlPrefix}(page=${i})}" class="page-link">[[${i}]]</a>
                         </li>
-                        <li th:class="${periodicals.isLast() ? 'page-item disabled' : 'page-item'}">
-                            <a th:href="@{${pageUrlPrefix}(page=${periodicals.getNumber()+2})}"
-                               class="page-link"><b>›</b></a>
-                        </li>
-                        <li th:class="${periodicals.isLast() ? 'page-item disabled' : 'page-item'}">
-                            <a th:href="@{${pageUrlPrefix}(page=${periodicals.getTotalPages()})}"
-                               class="page-link"><b>&raquo;</b></a>
-                        </li>
+<!--                        <li th:class="${periodicals.isLast() ? 'page-item disabled' : 'page-item'}">-->
+<!--                            <a th:href="@{${pageUrlPrefix}(page=${periodicals.getNumber()+2})}"-->
+<!--                               class="page-link"><b>›</b></a>-->
+<!--                        </li>-->
+<!--                        <li th:class="${periodicals.isLast() ? 'page-item disabled' : 'page-item'}">-->
+<!--                            <a th:href="@{${pageUrlPrefix}(page=${periodicals.getTotalPages()})}"-->
+<!--                               class="page-link"><b>&raquo;</b></a>-->
+<!--                        </li>-->
                     </ul>
                 </nav>
             </div>

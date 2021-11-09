@@ -16,9 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.baklan.periodicals.dto.UserDTO;
-import com.baklan.periodicals.service.UserService;
-
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor

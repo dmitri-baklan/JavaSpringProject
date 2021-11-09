@@ -74,29 +74,32 @@
             </div>
             <div class="col" sec:authorize="hasAnyAuthority('READER')">
                 <p class="fs-3" th:text="#{page.profile.periodical.list}"></p>
-                <table class="table table-borderless table-hover table-scroll">
-                    <thead class="thead-light">
-                    <tr align="center">
-                        <div class="list-group" >
-                            <th ><a class="list-group-item list-group-item-action list-group-item-primary"
-                                    th:text="#{table.profile.periodicals.name}">Name</a></th>
-                            <th><a class="list-group-item list-group-item-action list-group-item-primary"
-                                   th:text="#{table.profile.periodical.cost}">Subscription cost</a></th>
+                <div class="overflow-auto" style="height: 200px">
+                    <table class="table table-borderless table-hover table-scroll">
+                        <thead class="thead-light">
+                        <tr align="center">
+                            <div class="list-group" >
+                                <th ><a class="list-group-item list-group-item-action list-group-item-primary"
+                                        th:text="#{table.profile.periodicals.name}">Name</a></th>
+                                <th><a class="list-group-item list-group-item-action list-group-item-primary"
+                                       th:text="#{table.profile.periodical.cost}">Subscription cost</a></th>
 
-                        </div>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr scope="row" th:each="periodical: ${periodicals}" align="center">
-                        <td class="titleColumn" >
-                            <a class="alert-link"
-                               th:href="@{/periodicals/{id}(id=${periodical.id})}"
-                               th:text="${periodical.name}"></a>
-                        </td>
-                        <td th:text="${periodical.price}"/>
-                    </tr>
-                    </tbody>
-                </table>
+                            </div>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr scope="row" th:each="periodical: ${periodicals}" align="center">
+                            <td class="titleColumn" >
+                                <a class="alert-link"
+                                   th:href="@{/periodicals/{id}(id=${periodical.id})}"
+                                   th:text="${periodical.name}"></a>
+                            </td>
+                            <td th:text="${periodical.price}"/>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
         <div class="row" >

@@ -1,6 +1,6 @@
 package com.baklan.periodicals.controller;
 
-import com.baklan.periodicals.entity.periodicals.Periodical;
+
 import com.baklan.periodicals.entity.replenishment.Replenishment;
 import com.baklan.periodicals.service.ReplenishmentService;
 import lombok.AllArgsConstructor;
@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,13 +42,6 @@ public class ReplenishmentController {
                 .getPrincipal();
 
         Page<Replenishment> replenishments =  replenishmentService.getAllReplenishments(page, size, sortField, userDetails);
-
-        Map<String, String> request_params = new HashMap<String, String>();
-        request_params.put("page", page.toString());
-        request_params.put("size", size.toString());
-        request_params.put("sortField", sortField);
-
-        model.addAttribute("request_params", request_params);
         model.addAttribute("replenishments", replenishments);
 
         return "replenishment/replenishments";

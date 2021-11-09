@@ -65,6 +65,7 @@ public class UserService implements UserDetailsService {
                 : userRepository.findByEmail(searchQuery, pageable);
     }
 
+    //TODO: throws??
     @Transactional
     public void signUpUser(UserDTO userDTO) throws UserNotFoundException {
 

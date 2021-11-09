@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
@@ -40,7 +41,6 @@ public class ReplenishmentService {
 
         user.setBalance(user.getBalance() + replenishmentDTO.getValue());
         userRepository.save(user);
-
         replenishmentRepository.save(Replenishment.builder()
                 .sum(replenishmentDTO.getValue())
                 .user(user)

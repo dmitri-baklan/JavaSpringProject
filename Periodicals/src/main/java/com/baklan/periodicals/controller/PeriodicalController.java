@@ -2,8 +2,6 @@ package com.baklan.periodicals.controller;
 
 import com.baklan.periodicals.dto.PeriodicalDTO;
 import com.baklan.periodicals.entity.periodicals.Periodical;
-import com.baklan.periodicals.entity.user.User;
-import com.baklan.periodicals.exception.NotEnoughBalanceException;
 import com.baklan.periodicals.exception.PeriodicalNotFoundException;
 import com.baklan.periodicals.exception.UserNotFoundException;
 import com.baklan.periodicals.service.PeriodicalService;
@@ -38,7 +36,7 @@ public class PeriodicalController {
                                      @RequestParam(required = false, defaultValue = "") String subject,
                                      @RequestParam(required = false, defaultValue = "true") Boolean asc,
                                      @RequestParam(required = false, defaultValue = "1") Integer page,
-                                     @RequestParam(required = false, defaultValue = "8") Integer size,
+                                     @RequestParam(required = false, defaultValue = "5") Integer size,
                                      @RequestParam(required = false, defaultValue = "") String searchQuery,
                                      Model model){
         log.info("[PAGINATION] Input params: sortField:[{}], subject:[{}], direction:[{}], page:[{}], size:[{}], searchQuery:[{}]",

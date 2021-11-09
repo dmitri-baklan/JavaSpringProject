@@ -49,48 +49,42 @@
                 <span class="fs-5" th:text="${periodical.price}"></span>
                 <p></p>
                 <span class="fs-5" th:text="#{page.periodical.subscribers}">Subscribers</span>
-                <span class="fs-5" th:text="${periodical.users.size()}"></span>
+                <span class="fs-5" th:text="${periodical.subscribers}"></span>
             </div>
             <div class="col" sec:authorize="hasAnyAuthority('ADMINISTRATOR')">
                 <p class="fs-3" th:text="#{page.periodical.users.list}"></p>
-                <table class="table table-borderless table-hover table-scroll">
-                    <thead class="thead-light">
-                    <tr align="center">
-                        <div class="list-group" >
-                            <th ><a class="list-group-item list-group-item-action list-group-item-primary"
-                                    th:text="#{table.periodical.users.login}">Login</a></th>
-                            <th><a class="list-group-item list-group-item-action list-group-item-primary"
-                                   th:text="#{table.periodical.users.name.and.surname}">Name and Surname</a></th>
-
-                        </div>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr scope="row" th:each="user: ${users}" align="center">
-
-                        <td class="titleColumn" th:text="${user.email}" >
-                        </td>
-                        <td th:text="${user.name}+' '+${user.surname}"/>
-                    </tr>
-                    </tbody>
-                </table>
+                <div class="overflow-auto" style="height: 200px">
+                    <table class="table table-borderless table-hover table-scroll">
+                        <thead class="thead-light">
+                        <tr align="center">
+                            <div class="list-group" >
+                                <th ><a class="list-group-item list-group-item-action list-group-item-primary"
+                                        th:text="#{table.periodical.users.login}">Login</a></th>
+                                <th><a class="list-group-item list-group-item-action list-group-item-primary"
+                                       th:text="#{table.periodical.users.name.and.surname}">Name and Surname</a></th>
+                            </div>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr scope="row" th:each="user: ${users}" align="center">
+                            <td class="titleColumn" th:text="${user.email}" >
+                            </td>
+                            <td th:text="${user.name}+' '+${user.surname}"/>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col-6 col-sm-4" sec:authorize="hasAnyAuthority('ADMINISTRATOR')">
             <form th:method="POST" th:action="@{/periodicals/{id}/delete(id=${periodical.id})}" >
                 <button type="submit" class="btn btn-outline-danger"
-                        value="Delete">Delete periodical</button>
+                        value="Delete" th:text="#{button.delete}">Delete periodical</button>
             </form>
         </div>
         </div>
-
-
-
-
-
-
-
     </div>
 </div>
 

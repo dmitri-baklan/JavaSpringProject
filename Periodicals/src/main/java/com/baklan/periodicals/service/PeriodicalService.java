@@ -3,12 +3,10 @@ package com.baklan.periodicals.service;
 import com.baklan.periodicals.dto.PeriodicalDTO;
 import com.baklan.periodicals.entity.periodicals.Periodical;
 import com.baklan.periodicals.entity.periodicals.Subject;
-import com.baklan.periodicals.entity.user.Role;
 import com.baklan.periodicals.entity.user.User;
 import com.baklan.periodicals.exception.NotEnoughBalanceException;
 import com.baklan.periodicals.exception.PeriodicalNotFoundException;
 import com.baklan.periodicals.exception.UserNotFoundException;
-import com.baklan.periodicals.exception.UserNotSavedException;
 import com.baklan.periodicals.repository.PeriodicalRepository;
 import com.baklan.periodicals.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -21,14 +19,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToMany;
-import javax.swing.*;
 import javax.transaction.Transactional;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Slf4j
@@ -75,7 +67,7 @@ public class PeriodicalService {
      * @param page number of current page to displaying periodicals
      * @param size max number of periodicals which containing one page
      * @param searchQuery contain name of periodical for searching by <code>name</code>
-     * @return {@code Page<Periodical>} which contain sorted and filtered collection of periodicals entity
+     * @return {@code Page<Periodical>} contain sorted and filtered collection of periodicals entity
      * @see Pageable
      * @see #buildPage(String, boolean, int, int) 
      */
@@ -93,7 +85,6 @@ public class PeriodicalService {
                 : periodicalRepository.findByName(searchQuery, pageable);
     }
 
-
     @Transactional
     public void updatePeriodical(PeriodicalDTO periodicalDTO, Long id){
         periodicalRepository.save(
@@ -107,7 +98,11 @@ public class PeriodicalService {
         );
     }
 
-    public void deletePeriodical(Long id){
+    @Transactional
+    public void deletePeriodical(Long id)throws PeriodicalNotFoundException{
+        Periodical periodical = periodicalRepository.findById(id).orElseThrow(PeriodicalNotFoundException::new);
+        periodical.getUsers().clear();
+        periodicalRepository.save(periodical);
         periodicalRepository.deleteById(id);
     }
 
@@ -132,7 +127,8 @@ public class PeriodicalService {
      * @throws NotEnoughBalanceException
      */
     @Transactional
-    public void changeSubscription(Long id, UserDetails userDetails)throws RuntimeException{
+    public void changeSubscription(Long id, UserDetails userDetails)throws PeriodicalNotFoundException, UserNotFoundException,
+            NotEnoughBalanceException{
         Periodical periodical = periodicalRepository.findById(id)
                 .orElseThrow(PeriodicalNotFoundException::new);
 
@@ -152,5 +148,4 @@ public class PeriodicalService {
         periodical.setSubscribers((periodical.getSubscribers() == 0) ? 0 : (periodical.getSubscribers()-1));
         userRepository.save(user);
     }
-
 }

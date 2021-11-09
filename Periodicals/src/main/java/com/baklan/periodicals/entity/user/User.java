@@ -49,7 +49,7 @@ public class User {
     @Column
     private boolean isActive = true;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_periodicals",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "periodical_id"))
