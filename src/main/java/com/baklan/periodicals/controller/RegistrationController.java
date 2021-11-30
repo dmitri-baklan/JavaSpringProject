@@ -19,7 +19,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-@RequestMapping("/registration")
+@RequestMapping("/periodiclaspringwebapp.azurewebsites.net/registration")
 @Controller
 public class RegistrationController extends ResponseEntityExceptionHandler {
 

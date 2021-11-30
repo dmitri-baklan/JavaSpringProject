@@ -17,17 +17,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
     private static final Logger log = LoggerFactory.getLogger(HomeController.class);
 
-    @GetMapping("/")
+    @GetMapping("/periodiclaspringwebapp.azurewebsites.net/")
     public String root(Model model) {
         return "redirect:/welcome";
     }
 
-    @GetMapping("/welcome")
+    @GetMapping("/periodiclaspringwebapp.azurewebsites.net/welcome")
     public String welcome(Model model) {
         return "home.html";
     }
 
-    @RequestMapping("/login")
+    @RequestMapping("/periodiclaspringwebapp.azurewebsites.net/login")
     public String login() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || auth instanceof AnonymousAuthenticationToken) {

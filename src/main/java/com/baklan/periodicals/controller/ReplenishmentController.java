@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @AllArgsConstructor
-@RequestMapping("/replenishments")
+@RequestMapping("/periodiclaspringwebapp.azurewebsites.net/replenishments")
 @Controller
 public class ReplenishmentController {
     private static final Logger log = LoggerFactory.getLogger(RegistrationController.class);

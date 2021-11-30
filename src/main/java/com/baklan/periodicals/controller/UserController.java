@@ -22,7 +22,7 @@ import javax.validation.Valid;
 import java.util.*;
 
 @AllArgsConstructor
-@RequestMapping("/profile")
+@RequestMapping("/periodiclaspringwebapp.azurewebsites.net/profile")
 @Controller
 public class UserController {
 

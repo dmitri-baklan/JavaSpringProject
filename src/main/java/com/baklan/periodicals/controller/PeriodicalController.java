@@ -22,7 +22,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
-@RequestMapping("/periodicals")
+@RequestMapping("/periodiclaspringwebapp.azurewebsites.net/periodicals")
 @Controller
 public class PeriodicalController {
 
