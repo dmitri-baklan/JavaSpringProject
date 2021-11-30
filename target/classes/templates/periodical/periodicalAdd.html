@@ -1,0 +1,82 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="/css/node_modules/bootstrap-icons/main.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
+
+    <title th:text="#{title.periodical.add}">Title</title>
+</head>
+<body>
+<header>
+    <div th:insert="~{fragments/header :: copy}"></div>
+</header>
+<div class="text-center" >
+    <div class="sectionMainContent">
+        <form class="form-signup" th:method="post" th:action="@{/periodicals/add}" th:object="${periodical}">
+            <h1 class="h3 mb-3 mt-5 font-weight-normal" th:text="#{form.periodical}">Add new periodical</h1>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control"
+                               th:classappend="${#fields.hasErrors('name')} ? is-invalid : (${periodical.name != null} ? is-valid)"
+                               th:placeholder="#{form.periodical.name}" name="name" th:value="*{name}"
+                               th:errorClass="fieldserror" autofocus>
+                        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                             class="invalid-feedback"></div>
+                    </div>
+                </div>
+                <div id="nameHelp" class="form-text" th:text="#{form.periodical.name.help}"></div>
+                <div class="col">
+                    <input type="number" class="form-control" aria-describedby="numberHelp"
+                           th:classappend="${#fields.hasErrors('price')} ? is-invalid :
+                           (${periodical.price != null} ? is-valid)"
+                           th:placeholder="#{form.periodical.price}" name="price" th:value="*{price}"
+                           th:errorClass="is-invalid">
+                    <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="invalid-feedback"></div>
+                </div>
+                <br>
+                <div class="col">
+                    <div class="text-nowrap bd-highlight"
+                    th:text="#{form.periodical.subject}">Choose the subject
+                    </div>
+                </div>
+                <br>
+                <div class="pb-4 d-flex justify-content-center">
+                    <div class="custom-control custom-radio mx-2">
+                        <input type="radio" checked id="customRadio1" name="subject" class="custom-control-input"
+                               value="NEWS">
+                        <label class="custom-control-label" for="customRadio1"
+                               th:text="#{form.periodical.subject.news}">News</label>
+                    </div>
+                    <div class="custom-control custom-radio mx-2">
+                        <input type="radio" id="customRadio2" name="subject" class="custom-control-input"
+                               value="SPORT" th:field="*{subject}">
+                        <label class="custom-control-label" for="customRadio2"
+                               th:text="#{form.periodical.subject.sport}">Sport</label>
+                    </div>
+                    <div class="custom-control custom-radio mx-2">
+                        <input type="radio" id="customRadio3" name="subject" class="custom-control-input"
+                               value="SCIENCE" th:field="*{subject}">
+                        <label class="custom-control-label" for="customRadio2"
+                               th:text="#{form.periodical.subject.science}">Science</label>
+                    </div>
+                </div>
+                <br>
+                <div class="col">
+                    <button type="submit" class="btn btn-primary" th:text="#{button.submit}">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<footer>
+    <div th:insert="~{fragments/footer :: copy}"></div>
+</footer>
+</body>
+</html>
