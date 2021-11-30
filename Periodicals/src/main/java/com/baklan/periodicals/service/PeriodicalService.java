@@ -7,11 +7,13 @@ import com.baklan.periodicals.entity.user.User;
 import com.baklan.periodicals.exception.NotEnoughBalanceException;
 import com.baklan.periodicals.exception.PeriodicalNotFoundException;
 import com.baklan.periodicals.exception.UserNotFoundException;
+import com.baklan.periodicals.repository.Functional;
 import com.baklan.periodicals.repository.PeriodicalRepository;
 import com.baklan.periodicals.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +28,6 @@ import java.util.*;
 @Slf4j
 @Service
 public class PeriodicalService {
-
     @Autowired
     PeriodicalRepository periodicalRepository;
 
@@ -35,7 +36,6 @@ public class PeriodicalService {
 
     @Transactional
     public void savePeriodical(PeriodicalDTO periodicalDTO){
-
         Periodical periodical = Periodical
                 .builder()
                 .name(periodicalDTO.getName())

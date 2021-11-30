@@ -35,7 +35,7 @@ public class ReplenishmentService {
     private UserRepository userRepository;
 
     @Transactional
-    public void replenishBalance(UserDetails userDetails, ReplenishmentDTO replenishmentDTO)throws RuntimeException {
+    public void replenishBalance(UserDetails userDetails, ReplenishmentDTO replenishmentDTO)throws UserNotFoundException {
         User user = userRepository.findByEmail(userDetails.getUsername())
                 .orElseThrow(UserNotFoundException::new);
 

@@ -1,2 +1,5 @@
-package com.baklan.periodicals.repository;public interface Functional {
+package com.baklan.periodicals.repository;
+
+public interface Functional {
+    void someMethod();
 }
