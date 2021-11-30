@@ -17,6 +17,7 @@ import java.util.Optional;
 @Repository
 public interface PeriodicalRepository extends JpaRepository<Periodical, Long> {
 
+
     Optional<Periodical> findById(Long id);
 
     Page<Periodical> findAll(Pageable pageable);

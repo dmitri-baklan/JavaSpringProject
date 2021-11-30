@@ -3,6 +3,7 @@ package com.baklan.periodicals.controller;
 import com.baklan.periodicals.dto.ReplenishmentDTO;
 import com.baklan.periodicals.dto.UserDTO;
 import com.baklan.periodicals.entity.user.User;
+import com.baklan.periodicals.exception.UserNotFoundException;
 import com.baklan.periodicals.service.ReplenishmentService;
 import com.baklan.periodicals.service.UserService;
 import lombok.AllArgsConstructor;
@@ -24,7 +25,6 @@ import java.util.*;
 @RequestMapping("/profile")
 @Controller
 public class UserController {
-
 
     private static final Logger log = LoggerFactory.getLogger(RegistrationController.class);
 
@@ -131,7 +131,7 @@ public class UserController {
                 .getPrincipal();
         try {
             replenishmentService.replenishBalance(userDetails, replemishmentDTO);
-        } catch (Exception ex) {
+        } catch (UserNotFoundException ex) {
             log.info(" >> 'ex' replenishReaderBalance: {}", ex.getMessage());
             return "redirect:/profile";
         }

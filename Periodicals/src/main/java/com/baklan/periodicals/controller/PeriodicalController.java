@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @RequestMapping("/periodicals")
@@ -168,9 +169,7 @@ public class PeriodicalController {
 
         try{
             periodicalService.changeSubscription(id, userDetails);
-        }catch (UserNotFoundException ex){
-            log.info("Exception: {}", ex.getClass());
-        }catch (PeriodicalNotFoundException ex){
+        }catch (UserNotFoundException | PeriodicalNotFoundException ex){
             log.info("Exception: {}", ex.getClass());
         }
         return "redirect:/periodicals";
