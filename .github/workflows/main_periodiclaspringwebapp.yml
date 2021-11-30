@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'PeriodiclaSpringWebApp'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1D61E5C9B6994AEFA7AAC32145351C7F }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A6BC46D2779741A89107B1C53F7E5FF7 }}
           package: '*.jar'
